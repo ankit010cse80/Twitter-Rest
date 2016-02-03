@@ -12,12 +12,14 @@ import com.activeandroid.query.Select;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -101,6 +103,23 @@ public class Tweet extends Model implements Serializable {
         return tweet;
     }
 
+    public static ArrayList<Tweet> fromJSONArray(JSONArray jsonArray) {
+        ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                JSONObject tweetJSON = jsonArray.getJSONObject(i);
+                Tweet tweet =Tweet.fromJSON(tweetJSON);
+                if (tweet != null) {
+                    tweets.add(tweet);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                continue;
+            }
+        }
+        return tweets;
+    }
 
     // Helper methods
     public static String getRelativeTimeAgo(String rawJsonDate) {
