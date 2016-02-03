@@ -4,6 +4,9 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -67,5 +70,49 @@ public class User extends Model implements Serializable {
 
     public String getBackgroundProfileImageURL() {
         return backgroundProfileImageURL;
+    }
+
+
+    public User() {
+        super();
+    }
+
+    public static User fromJSON(JSONObject json) {
+        User user = new User();
+        try {
+            user.name = json.getString("name");
+            user.uid = json.getLong("id");
+            user.screenName = json.getString("screen_name");
+            user.profileImageURL = json.getString("profile_image_url");
+            user.description = json.getString("description");
+            user.backgroundProfileImageURL = json.getString("profile_background_image_url");
+
+            Long followers = json.getLong("followers_count");
+            if (followers != null) {
+                user.followerCount = followers;
+            } else {
+                user.followerCount = 0;
+            }
+
+            Long followings = json.getLong("friends_count");
+            if (followings != null) {
+                user.followingCount = followings;
+            } else {
+                user.followingCount = 0;
+            }
+
+            Long tweets = json.getLong("statuses_count");
+            if (tweets != null) {
+                user.tweetCount = tweets;
+            } else {
+                user.tweetCount = 0;
+            }
+
+//            user.save();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return user;
     }
 }
