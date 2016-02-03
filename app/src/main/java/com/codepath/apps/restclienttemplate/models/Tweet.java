@@ -1,12 +1,16 @@
 package com.codepath.apps.restclienttemplate.models;
 
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -62,6 +66,36 @@ public class Tweet extends Model implements Serializable {
     }
 
 
+    public Tweet() {
+        super();
+    }
+
+    public static Tweet fromJSON(JSONObject json) {
+        Tweet tweet = new Tweet();
+
+        try {
+            tweet.body = json.getString("text");
+            tweet.uid = json.getLong("id");
+
+            if (maxId > tweet.uid) {
+                maxId = tweet.uid;
+            }
+
+            if (sinceId < tweet.uid) {
+                sinceId = tweet.uid;
+            }
+
+            tweet.createdAt = getRelativeTimeAgo(json.getString("created_at"));
+            tweet.user = User.findOrCreateFromJson(json.getJSONObject("user"));
+            tweet.retweetCount = String.valueOf(json.getLong("retweet_count"));
+            tweet.favoriteCount = String.valueOf(json.getLong("favorite_count"));
+            tweet.save();
+        } catch (JSONException e) {
+            Log.d("Tweet", "Json parse exception");
+            e.printStackTrace();
+        }
+        return tweet;
+    }
 
     public static String getRelativeTimeAgo(String rawJsonDate) {
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
