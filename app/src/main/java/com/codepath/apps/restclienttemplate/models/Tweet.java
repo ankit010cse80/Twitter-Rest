@@ -32,5 +32,30 @@ public class Tweet extends Model implements Serializable {
     @Column(name = "favorite_count")
     private String favoriteCount;
 
+    public String getBody() {
+        return body;
+    }
+
+    public long getUid() {
+        return uid;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getRetweetCount() {
+        return retweetCount;
+    }
+
+    public String getFavoriteCount() {
+        return favoriteCount;
+    }
+
+
 
 }
