@@ -1,9 +1,13 @@
 package com.codepath.apps.restclienttemplate.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,6 +58,19 @@ public class ComposeTweetActivity extends ActionBarActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void showAsPopup(Activity activity) {
+        //To show activity as dialog and dim the background, you need to declare android:theme="@style/PopupTheme" on for the chosen activity on the manifest
+        activity.requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND,
+                WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        activity.getWindow().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
+        WindowManager.LayoutParams params = activity.getWindow().getAttributes();
+        params.height = 600; //fixed height
+        params.alpha = 1.0f;
+        params.dimAmount = 0.5f;
+        activity.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
     }
 
 }
