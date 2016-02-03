@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate.models;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -114,5 +115,28 @@ public class User extends Model implements Serializable {
         }
 
         return user;
+    }
+
+
+    public static User findOrCreateFromJson(JSONObject json) {
+
+        long id = 0;
+        try {
+            id = json.getLong("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        User existingUser =
+                new Select().from(User.class).where("u_id = ?", id).executeSingle();
+        if (existingUser != null) {
+            // found and return existing
+            return existingUser;
+        } else {
+            // create and return new
+            User user = User.fromJSON(json);
+            user.save();
+            return user;
+        }
     }
 }
