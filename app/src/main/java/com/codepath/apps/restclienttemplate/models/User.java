@@ -31,4 +31,41 @@ public class User extends Model implements Serializable {
     private long tweetCount;
     @Column(name = "background_profile_image_url")
     private String backgroundProfileImageURL;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public long getUid() {
+        return uid;
+    }
+
+    public String getScreenName() {
+        return screenName;
+    }
+
+    public String getProfileImageURL() {
+        return profileImageURL;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Long getFollowerCount() {
+        return followerCount;
+    }
+
+    public Long getFollowingCount() {
+        return followingCount;
+    }
+
+    public Long getTweetCount() {
+        return tweetCount;
+    }
+
+    public String getBackgroundProfileImageURL() {
+        return backgroundProfileImageURL;
+    }
 }
