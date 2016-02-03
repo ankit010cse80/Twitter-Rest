@@ -49,7 +49,26 @@ public class TwitterClient extends OAuthBaseClient {
 
 
 
-    // Check if Internet is available
+
+    public void composeTweet(String tweet, long parentId, AsyncHttpResponseHandler handler) {
+        if (isNetworkAvailable()) {
+            // Get API
+            String apiUrl = getApiUrl("statuses/update.json");
+            // Create parameter list
+            RequestParams params = new RequestParams();
+            params.put("status", tweet);
+            if (parentId != 0) {
+                params.put("in_reply_to_status_id", parentId);
+            }
+            // Execute the request
+            getClient().post(apiUrl, params, handler);
+        } else {
+            Toast.makeText(context, "Network not available. Please check your network connection", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+            // Check if Internet is available
     private Boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
