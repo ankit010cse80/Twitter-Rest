@@ -24,6 +24,16 @@ public class EndlessScrollListener implements AbsListView.OnScrollListener {
     }
 
 
+    public EndlessScrollListener(int visibleThreshold) {
+        this.visibleThreshold = visibleThreshold;
+    }
+
+    public EndlessScrollListener(int visibleThreshold, int startPage) {
+        this.visibleThreshold = visibleThreshold;
+        this.startingPageIndex = startPage;
+        this.currentPage = startPage;
+    }
+
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
