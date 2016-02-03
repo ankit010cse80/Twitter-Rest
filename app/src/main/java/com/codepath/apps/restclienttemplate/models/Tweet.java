@@ -1,11 +1,14 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.database.Cursor;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import com.activeandroid.Cache;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
 
@@ -15,6 +18,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -97,6 +101,8 @@ public class Tweet extends Model implements Serializable {
         return tweet;
     }
 
+
+    // Helper methods
     public static String getRelativeTimeAgo(String rawJsonDate) {
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
         SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
@@ -114,5 +120,37 @@ public class Tweet extends Model implements Serializable {
         return relativeDate;
     }
 
+
+    public static void setMaxId(long id) {
+        Log.d("TWEET", "Max id set is " + id);
+        maxId = id;
+    }
+
+    public static long getMaxId() {
+        return maxId - 1;
+    }
+
+    public static long getSinceId() {
+        return sinceId;
+    }
+
+    // Return cursor for result set for all todo items
+    public static Cursor fetchResultCursor() {
+        String tableName = Cache.getTableInfo(Tweet.class).getTableName();
+        // Query all items without any conditions
+        String resultRecords = new Select(tableName + ".*, " + tableName + ".Id as _id").
+                from(Tweet.class).toSql();
+        // Execute query on the underlying ActiveAndroid SQLite database
+        Cursor resultCursor = Cache.openDatabase().rawQuery(resultRecords, null);
+        return resultCursor;
+    }
+
+    public static List<Tweet> getTweetsFromDB() {
+        List<Tweet> tweets = new Select()
+                .from(Tweet.class)
+                .orderBy("created_at DESC").execute();
+
+        return tweets;
+    }
 
 }
