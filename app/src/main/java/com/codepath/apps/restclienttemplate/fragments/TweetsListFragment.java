@@ -83,6 +83,13 @@ public abstract class TweetsListFragment extends Fragment {
             }
         });
 
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         return v;
     }
 
