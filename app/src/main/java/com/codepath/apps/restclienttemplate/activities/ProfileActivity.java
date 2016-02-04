@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.models.User;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by ankit on 4/2/16.
@@ -45,6 +46,17 @@ public class ProfileActivity extends ActionBarActivity {
         tvTweetCount = (TextView) findViewById(R.id.tvTweetCount);
         tvFollowingCount = (TextView) findViewById(R.id.tvFollowingCount);
         tvFollowerCount = (TextView) findViewById(R.id.tvFollowersCount);
+
+        // Populate information
+        tvUserName.setText(user.getName());
+        tvDescription.setText(user.getDescription());
+        tvTweetCount.setText(user.getTweetCount().toString() + " Tweets");
+        tvFollowerCount.setText(user.getFollowerCount().toString() + " Followers");
+        tvFollowingCount.setText(user.getFollowingCount().toString() + " Following");
+        // Clear user photo
+        ivUserPhoto.setImageResource(android.R.color.transparent);
+        // Populate user photo
+        Picasso.with(getApplicationContext()).load(user.getProfileImageURL()).into(ivUserPhoto);
     }
 
 
