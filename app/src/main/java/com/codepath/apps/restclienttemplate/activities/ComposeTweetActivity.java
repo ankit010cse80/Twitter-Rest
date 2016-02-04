@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,10 +12,15 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.models.User;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 /**
  * Created by ankit on 3/2/16.
@@ -58,6 +64,28 @@ public class ComposeTweetActivity extends ActionBarActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void composeTweet(String tweetStr, Long parentId) {
+        client.composeTweet(tweetStr, parentId, new JsonHttpResponseHandler() {
+            // SUCCESS
+
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.d("TweetDebug", response.toString());
+                setResult(RESULT_OK);
+                ComposeTweetActivity.this.finish();
+            }
+
+            // FAILURE
+
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("TweetError", errorResponse.toString());
+                setResult(RESULT_CANCELED);
+                Toast.makeText(ComposeTweetActivity.this, "Could not compose tweet" + errorResponse.toString(), Toast.LENGTH_SHORT).show();
+                ComposeTweetActivity.this.finish();
+            }
+        });
     }
 
     public static void showAsPopup(Activity activity) {
