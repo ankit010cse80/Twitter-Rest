@@ -38,6 +38,13 @@ public class ProfileActivity extends ActionBarActivity {
 
     private void populateViews(Bundle savedInstanceState) {
 
+        // Find views
+        tvUserName = (TextView) findViewById(R.id.tvUsername);
+        tvDescription = (TextView) findViewById(R.id.tvBody);
+        ivUserPhoto = (ImageView) findViewById(R.id.ivProfileImage);
+        tvTweetCount = (TextView) findViewById(R.id.tvTweetCount);
+        tvFollowingCount = (TextView) findViewById(R.id.tvFollowingCount);
+        tvFollowerCount = (TextView) findViewById(R.id.tvFollowersCount);
     }
 
 
