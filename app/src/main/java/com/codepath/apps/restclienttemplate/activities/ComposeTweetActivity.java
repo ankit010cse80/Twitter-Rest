@@ -3,6 +3,8 @@ package com.codepath.apps.restclienttemplate.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -102,6 +104,28 @@ public class ComposeTweetActivity extends ActionBarActivity {
         params.alpha = 1.0f;
         params.dimAmount = 0.5f;
         activity.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+    }
+
+    private TextWatcher getTextChangedListener() {
+        TextWatcher tWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // this will show characters remaining
+                menuItem.setTitle(Integer.toString(140 - s.toString().length()));
+            }
+        };
+
+        return tWatcher;
     }
 
 }
