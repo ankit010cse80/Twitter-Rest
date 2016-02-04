@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.activities.TweetDetailActivity;
 import com.codepath.apps.restclienttemplate.adapters.TweetListAdapter;
+import com.codepath.apps.restclienttemplate.helper.EndlessScrollListener;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.ArrayList;
@@ -64,6 +65,23 @@ public abstract class TweetsListFragment extends Fragment {
         });
 
 
+        lvTweets.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                populateTimelineWithMaxId(Tweet.getSinceId(), Tweet.getMaxId());
+            }
+        });
+
+
+        // Get SwipeContainer
+        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                populateTimelineWithMaxId(null, Long.MAX_VALUE);
+            }
+        });
 
         return v;
     }
