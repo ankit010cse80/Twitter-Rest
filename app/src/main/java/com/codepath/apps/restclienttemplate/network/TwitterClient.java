@@ -67,8 +67,20 @@ public class TwitterClient extends OAuthBaseClient {
         }
     }
 
+    public void getCredentials(AsyncHttpResponseHandler handler) {
+        if (isNetworkAvailable()) {
+            // Get API
+            String apiUrl = getApiUrl("account/verify_credentials.json");
+            // Execute te request
+            getClient().get(apiUrl, handler);
+        } else {
+            Toast.makeText(context, "Network not available. Please check your network connection", Toast.LENGTH_SHORT);
+        }
+    }
 
-            // Check if Internet is available
+
+
+    // Check if Internet is available
     private Boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
