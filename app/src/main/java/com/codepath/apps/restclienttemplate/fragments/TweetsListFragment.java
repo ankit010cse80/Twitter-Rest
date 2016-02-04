@@ -74,4 +74,9 @@ public abstract class TweetsListFragment extends Fragment {
         tweetAdapter.addAll(tweets);
     }
 
+
+    protected void clearList() {
+        tweetAdapter.clear();
+    }
+
 }
