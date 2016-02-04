@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by ankit on 3/2/16.
  */
-public class TweetsListFragment extends Fragment {
+public abstract class TweetsListFragment extends Fragment {
 
     private SwipeRefreshLayout swipeContainer;
     private TweetListAdapter tweetAdapter;
@@ -64,8 +64,14 @@ public class TweetsListFragment extends Fragment {
         });
 
 
+
         return v;
     }
 
+
+    //helper methods
+    protected void addAll(ArrayList<Tweet> tweets) {
+        tweetAdapter.addAll(tweets);
+    }
 
 }
