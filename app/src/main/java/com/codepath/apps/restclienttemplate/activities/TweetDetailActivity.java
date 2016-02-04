@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,5 +45,12 @@ public class TweetDetailActivity extends ActionBarActivity {
         btnReply = (ImageButton) findViewById(R.id.btnTweetDetailReply);
 
 
+        //filling values
+        tvUserName.setText(tweet.getUser().getName());
+        tvScreenName.setText(tweet.getUser().getScreenName());
+        tvTweetDetail.setText(Html.fromHtml(tweet.getBody()));
+        tvTimestamp.setText(tweet.getCreatedAt());
+        tvTweetCount.setText(tweet.getRetweetCount());
+        tvFavoritesCount.setText(tweet.getFavoriteCount());
     }
 }
