@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.restclienttemplate.fragments.UserTimelineFragment;
 import com.codepath.apps.restclienttemplate.models.User;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
 import com.squareup.picasso.Picasso;
@@ -57,6 +59,19 @@ public class ProfileActivity extends ActionBarActivity {
         ivUserPhoto.setImageResource(android.R.color.transparent);
         // Populate user photo
         Picasso.with(getApplicationContext()).load(user.getProfileImageURL()).into(ivUserPhoto);
+
+        getSupportActionBar().setTitle("@" + user.getScreenName());
+
+        if (savedInstanceState == null) {
+            // Get screen name
+            String screenName = user.getScreenName();
+            // Create user timeline fragment
+            UserTimelineFragment fragment = UserTimelineFragment.newInstance(screenName);
+            // Display user fragment
+            FragmentTransaction ft = getSupportFragmentManager() .beginTransaction();
+            ft.replace(R.id.flContainer, fragment);
+            ft.commit();
+        }
     }
 
 
