@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -73,5 +74,12 @@ public class TweetDetailActivity extends ActionBarActivity {
                 .load(tweet.getUser().getProfileImageURL())
                 .placeholder(R.drawable.photo_placeholder)
                 .into(ivUserPhoto);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_tweet_detail, menu);
+        return true;
     }
 }
