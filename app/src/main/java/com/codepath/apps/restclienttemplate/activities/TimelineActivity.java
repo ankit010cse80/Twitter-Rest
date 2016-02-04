@@ -52,4 +52,11 @@ public class TimelineActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void onProfileView(MenuItem mi) {
+        // Open Profile Activity
+        Intent i = new Intent(TimelineActivity.this, ProfileActivity.class);
+        startActivity(i);
+    }
 }
