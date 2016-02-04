@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate.fragments;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.codepath.apps.restclienttemplate.TwitterApplication;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -18,6 +19,14 @@ public class UserTimelineFragment extends TweetsListFragment {
 
     private TwitterClient client;
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Get the client
+        client = TwitterApplication.getRestClient();
+        populateTimelineWithMaxId(null, Long.MAX_VALUE);
+    }
 
 
     public static UserTimelineFragment newInstance(String screenName) {
