@@ -61,6 +61,9 @@ public class ComposeTweetActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if (id == R.id.miTweet) {
+            composeTweet(etTweet.getText().toString(), parentId);
+        }
 
 
         return super.onOptionsItemSelected(item);
