@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate.fragments;
 
+import android.os.Bundle;
 import android.util.Log;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -16,6 +17,18 @@ import org.json.JSONObject;
 public class UserTimelineFragment extends TweetsListFragment {
 
     private TwitterClient client;
+
+
+
+    public static UserTimelineFragment newInstance(String screenName) {
+        UserTimelineFragment userFragment = new UserTimelineFragment();
+        Bundle args = new Bundle();
+        args.putString("screen_name", screenName);
+        userFragment.setArguments(args);
+        return userFragment;
+    }
+
+
     @Override
     public void populateTimelineWithMaxId(Long sinceId, final long maxId) {
 
