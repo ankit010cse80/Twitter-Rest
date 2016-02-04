@@ -79,6 +79,27 @@ public class TwitterClient extends OAuthBaseClient {
     }
 
 
+    public void getUserTimeline(String screenName, long sinceId, long maxID, AsyncHttpResponseHandler handler) {
+        if (isNetworkAvailable()) {
+            // Get API
+            String apiUrl = getApiUrl("statuses/user_timeline.json");
+            // Create parameter list
+            RequestParams params = new RequestParams();
+            params.put("count", 50);
+            params.put("since_id", 1);
+            params.put("screen_name", screenName);
+
+            if (maxID != Long.MAX_VALUE) {
+                params.put("max_id", maxID);
+            }
+
+            // Execute the request
+            getClient().get(apiUrl, params, handler);
+        } else {
+            Toast.makeText(context, "Network not available. Please check your network connection", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     // Check if Internet is available
     private Boolean isNetworkAvailable() {
