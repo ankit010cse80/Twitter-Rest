@@ -74,9 +74,12 @@ public abstract class TweetsListFragment extends Fragment {
         tweetAdapter.addAll(tweets);
     }
 
-
     protected void clearList() {
         tweetAdapter.clear();
+    }
+
+    protected void stopRefreshing() {
+        swipeContainer.setRefreshing(false);
     }
 
 }
