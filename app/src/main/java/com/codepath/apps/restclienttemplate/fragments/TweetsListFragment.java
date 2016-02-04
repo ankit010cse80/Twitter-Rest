@@ -82,4 +82,6 @@ public abstract class TweetsListFragment extends Fragment {
         swipeContainer.setRefreshing(false);
     }
 
+    public abstract void populateTimelineWithMaxId(Long sinceId, long maxId);
+
 }
