@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate.fragments;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
@@ -18,4 +19,16 @@ public class TweetsListFragment extends Fragment {
     private TweetListAdapter tweetAdapter;
     private ListView lvTweets;
     private ArrayList<Tweet> tweets;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Create arraylist (data source)
+        tweets = new ArrayList<Tweet>();
+        // Create Adapter
+        tweetAdapter = new TweetListAdapter(getActivity(), tweets);
+    }
+
+
 }
