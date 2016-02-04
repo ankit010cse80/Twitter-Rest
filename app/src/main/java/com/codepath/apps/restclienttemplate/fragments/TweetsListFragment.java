@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,8 @@ public abstract class TweetsListFragment extends Fragment {
         lvTweets.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
+
+                Log.d("SCROLLING", "Page is " + page + "Total Items are " + totalItemsCount + "Max ID " + Tweet.getMaxId() + " and Since Id" + Tweet.getSinceId());
                 populateTimelineWithMaxId(Tweet.getSinceId(), Tweet.getMaxId());
             }
         });
