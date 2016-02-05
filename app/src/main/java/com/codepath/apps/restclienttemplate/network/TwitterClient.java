@@ -121,6 +121,22 @@ public class TwitterClient extends OAuthBaseClient {
     }
 
 
+    public Boolean addFavorite(long tweetId, AsyncHttpResponseHandler handler) {
+        if (isNetworkAvailable()) {
+            // Get API
+            String apiUrl = getApiUrl("favorites/create.json");
+            // Create parameter list
+            RequestParams params = new RequestParams();
+            params.put("id", tweetId);
+            // Execute te request
+            getClient().get(apiUrl, handler);
+            return true;
+        } else {
+            Toast.makeText(context, "Network not available. Please check your network connection", Toast.LENGTH_SHORT);
+            return false;
+        }
+    }
+
     // Check if Internet is available
     private Boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
