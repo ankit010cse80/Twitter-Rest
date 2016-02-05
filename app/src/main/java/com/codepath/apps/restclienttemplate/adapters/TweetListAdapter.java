@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApplication;
+import com.codepath.apps.restclienttemplate.activities.ComposeTweetActivity;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.network.TwitterClient;
 
@@ -60,6 +62,16 @@ public class TweetListAdapter extends ArrayAdapter<Tweet> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        viewHolder.btnReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), ComposeTweetActivity.class);
+                i.putExtra("parentId", tweet.getUid());
+                i.putExtra("parentUsername", tweet.getUser().getScreenName());
+                getContext().startActivity(i);
+            }
+        });
 
         return convertView;
     }
