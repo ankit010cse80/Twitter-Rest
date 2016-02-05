@@ -60,5 +60,7 @@ public class TweetListAdapter extends ArrayAdapter<Tweet> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        return convertView;
     }
 }
